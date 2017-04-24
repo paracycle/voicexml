@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version = "2.1" >
+  <form>
+    <block name="hello">
+    	Hello!
+    	<var name="place" expr="'Nada'" />
+    </block>
+
+    <block>
+    	<var name="place" expr="'Strato'" />
+
+	    <prompt>
+	      Thanks for calling <value expr="place"/> Pizza.
+	    </prompt>
+
+	    <script>
+	    	place = null;
+	    	location = 'Nueve'
+	    </script>
+
+	    <prompt cond="place || location">
+	      Thanks for calling <value expr="place || location"/> Pizza.
+	    </prompt>
+
+	    <goto next="#goodbye" />
+    </block>
+  </form>
+
+  <form id="goodbye">
+  	<block>Goodbye <value expr="'World!'"/></block>
+  </form>
+</vxml>
