@@ -5,6 +5,7 @@ const winston = require('winston');
 const model = require('./model');
 const promptPlayer = require('./promptPlayer');
 const Nodes = require('./xml/');
+const Events = require('./event/');
 
 const FORM_ITEMS = ['block', 'initial', 'field', 'object', 'record', 'subdialog', 'transfer'];
 
@@ -41,9 +42,17 @@ class FormInterpretationAlgorithm {
 				this._activeDialogChanged = this._item.name != lastFormItemName;
 				lastFormItemName = this._item.name;
 
-				this._collect(this._item);
+				try {
+					this._collect(this._item);
 
-				this._process(this._item);
+					this._process(this._item);
+				} catch (e) {
+					if (e instanceof Events.GotoNextFormItemEvent) {
+						gotoFormItemName = e.item;
+					} else {
+						throw e;
+					}
+				}
 			}
 			// winston.silly("After main loop: %s", JSON.stringify(model));
 		} while (this._item != null);

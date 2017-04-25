@@ -27,6 +27,13 @@
   </form>
 
   <form id="goodbye">
-  	<block>Goodbye <value expr="'World!'"/></block>
+	<block name="finish" cond="false">
+		 <value expr="'World!'"/>
+	</block>
+
+	<block>
+		Goodbye
+		<goto exprItem="'fin' + 'ish'" />
+	</block>
   </form>
 </vxml>
